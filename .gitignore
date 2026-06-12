@@ -1,0 +1,19 @@
+# Virtual environment
+venv/
+env/
+.env
+
+# Google Cloud Credentials
+service.json
+*.json
+
+# ChromaDB
+code_index/
+
+# Cloned repos
+repos/
+
+# Python cache
+__pycache__/
+*.pyc
+.pytest_cache/
