@@ -1,0 +1,5 @@
+streamlit
+google-cloud-aiplatform
+chromadb
+gitpython
+rank_bm25
