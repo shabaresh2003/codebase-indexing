@@ -78,6 +78,7 @@ with st.sidebar:
                         st.success("Repository is already up to date!")
                     else:
                         st.session_state.vector_store.process_chunks(repo_name, new_chunks, deleted_files)
+                        st.session_state.search_engine.invalidate_bm25_cache(repo_name)
                         
                         # Save new hashes
                         with open(hashes_file, 'w') as f:
@@ -101,7 +102,7 @@ else:
         if query:
             with st.spinner("Searching and generating answer..."):
                 try:
-                    results = st.session_state.search_engine.semantic_search(st.session_state.repo_name, query)
+                    results = st.session_state.search_engine.hybrid_search(st.session_state.repo_name, query)
                     answer = st.session_state.search_engine.generate_answer_with_citations(query, results)
                     
                     st.markdown("### Answer")
