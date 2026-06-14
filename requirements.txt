@@ -3,3 +3,9 @@ google-cloud-aiplatform
 chromadb
 gitpython
 rank_bm25
+tree-sitter
+tree-sitter-python
+tree-sitter-javascript
+tree-sitter-typescript
+tree-sitter-go
+tree-sitter-rust

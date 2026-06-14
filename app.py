@@ -20,7 +20,7 @@ if "search_engine" not in st.session_state:
     st.session_state.search_engine = None
 
 st.title("🔍 Semantic Codebase Search")
-st.markdown("Index any Python GitHub repository and search it using natural language.")
+st.markdown("Index any GitHub repository and search it using natural language.")
 
 # Setup Authentication
 service_account_path = "service.json"
@@ -61,7 +61,7 @@ with st.sidebar:
                     st.error(f"Failed to clone repository: {e}")
                     st.stop()
                     
-            with st.spinner("Parsing and embedding Python files..."):
+            with st.spinner("Parsing and embedding code files..."):
                 try:
                     # Get previous hashes for this repo if it exists
                     # For simplicity in this demo, we store them in session state. 
@@ -112,7 +112,9 @@ else:
                     for i, res in enumerate(results):
                         with st.expander(f"[{i+1}] {res['metadata']['file']} (Score: {res['score']:.3f})"):
                             st.markdown(f"**Name:** `{res['metadata']['name']}` | **Type:** `{res['metadata']['type']}` | **Line:** `{res['metadata']['lineno']}`")
-                            st.code(res['code'], language="python")
+                            ext = os.path.splitext(res['metadata']['file'])[1]
+                            lang_map = {".py": "python", ".js": "javascript", ".jsx": "javascript", ".ts": "typescript", ".tsx": "typescript", ".go": "go", ".rs": "rust"}
+                            st.code(res['code'], language=lang_map.get(ext, "python"))
                             
                 except Exception as e:
                     st.error(f"Search failed: {e}")
