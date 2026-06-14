@@ -1,13 +1,13 @@
 # 🔍 Semantic Codebase Search
 
-An intelligent, AI-powered search engine for Python codebases. This application clones any Python GitHub repository, parses the code into semantic chunks, and allows you to search and ask questions about your codebase using natural language. It leverages Google's Vertex AI and ChromaDB to synthesize precise answers backed by code citations.
+An intelligent, AI-powered search engine for software codebases. This application clones any GitHub repository (supporting Python, JavaScript, TypeScript, Go, and Rust), parses the code into semantic chunks, and allows you to search and ask questions about your codebase using natural language. It leverages Google's Vertex AI and ChromaDB to synthesize precise answers backed by code citations.
 
 ---
 
 ## ✨ Features
 
 - **🧠 Hybrid Search (Semantic + BM25)**: Combines Vertex AI embeddings (`text-embedding-004`) for conceptual understanding with BM25 keyword search for exact identifier matching. Uses Reciprocal Rank Fusion (RRF) to deliver the absolute best results.
-- **⚡ Incremental Indexing**: Uses Python's `ast` module to intelligently parse code down to the function and class level. Caches file hashes to ensure that subsequent updates only re-index files that have been modified or added.
+- **⚡ Incremental Indexing**: Uses `tree-sitter` to intelligently parse code down to the function and class level across multiple languages. Caches file hashes to ensure that subsequent updates only re-index files that have been modified or added.
 - **🤖 Retrieval-Augmented Generation (RAG)**: Employs `gemini-2.5-pro` to answer complex questions about your codebase.
 - **📌 Inline Citations**: Generates answers with strict, inline citations linking directly back to the exact file, class, and line number where the context was found.
 - **🗂️ Local Vector Storage**: Uses ChromaDB to efficiently store and query embeddings locally, completely avoiding the need for expensive cloud database hosting.
@@ -20,7 +20,7 @@ An intelligent, AI-powered search engine for Python codebases. This application 
 - **LLM & Embeddings**: [Google Vertex AI](https://cloud.google.com/vertex-ai) (`gemini-2.5-pro`, `text-embedding-004`)
 - **Vector Database**: [ChromaDB](https://www.trychroma.com/)
 - **Keyword Search**: `rank_bm25`
-- **AST Parsing**: Python built-in `ast` module
+- **AST Parsing**: `tree-sitter` (Python, JavaScript, TypeScript, Go, Rust)
 - **Git Integration**: `GitPython`
 
 ---
@@ -64,7 +64,7 @@ The application will open in your browser at `http://localhost:8501`.
 
 1. **Index a Repository**: 
    - Open the app and look at the sidebar.
-   - Enter a valid Python GitHub repository URL (e.g., `https://github.com/pallets/flask`).
+   - Enter a valid GitHub repository URL (e.g., `https://github.com/pallets/flask` or a TS/JS repo).
    - Click **Index / Update**. 
    - *Note: The first time you index a large repo, it will take a minute or two to generate embeddings. Subsequent updates will be instant!*
 
@@ -78,7 +78,7 @@ The application will open in your browser at `http://localhost:8501`.
 
 ## 🔮 Future Roadmap
 
-- [ ] Support for Multi-Language parsing using `Tree-sitter` (JS, Go, Rust, etc.)
+- [x] Support for Multi-Language parsing using `Tree-sitter` (JS, Go, Rust, etc.)
 - [ ] Indexing non-code context files (Markdown, Configs)
 - [ ] Conversational UI with persistent chat history
 - [ ] Knowledge Graph extraction (GraphRAG) for mapping dependencies
